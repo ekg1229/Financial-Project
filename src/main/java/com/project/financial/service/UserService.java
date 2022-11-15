@@ -14,7 +14,7 @@ public class UserService{
 
     private final UserRepository userRepository;
 
-    public User saveMember(User user){
+    public User saveUser(User user){
         validateDuplicateMember(user);
         return userRepository.save(user);
     }
@@ -22,7 +22,7 @@ public class UserService{
     private void validateDuplicateMember(User member){
         User findMember = userRepository.findByEmail(member.getEmail());
         if(findMember != null){
-            throw new IllegalStateException("이미 가입된 회원입니다."); // 예외 처리
+            throw new IllegalStateException("이미 가입된 회원입니다."); //예외 처리
         }
     }
 }

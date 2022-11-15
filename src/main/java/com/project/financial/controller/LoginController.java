@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/members")
+@RequestMapping("/users")
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
@@ -18,7 +18,7 @@ public class LoginController {
 
     @GetMapping(value = "/new")
     public String memberForm(Model model){
-        model.addAttribute("memberFormDto", new SignUpDto());
-        return "member/memberForm";
+        model.addAttribute("SignUpDto", new SignUpDto());
+        return "users/SignUpForm";
     }
 }

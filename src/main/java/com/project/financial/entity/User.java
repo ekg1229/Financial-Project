@@ -47,6 +47,7 @@ public class User{
         user.setEmail(signUpDto.getEmail());
         String password = passwordEncoder.encode(signUpDto.getPassword());
         user.setPassword(password);
+        user.setRiskAversionStatus(RiskAversionStatus.RISKY);
         return user;
     }
 }
