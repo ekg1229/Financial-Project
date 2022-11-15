@@ -1,0 +1,13 @@
+{
+	"seed" : 1000000,
+	"num_stock" : 3, 
+	"int_rate" : 0.002, 
+	"risk_aversion" : 2, 
+	"risk_weight" : 80, 
+	"nonrisk_weight" : 20, 
+	"stock" : [ 
+		{"stock_code" : "028670", "stock_weight" : 0.2415624124477316},
+		{"stock_code" : "019170", "stock_weight" : 0.2675114079874779},
+		{"stock_code" : "011810", "stock_weight" : 0.24997676397125754},
+		{"stock_code" : "035720", "stock_weight" : 0.2409494155935329}]
+}

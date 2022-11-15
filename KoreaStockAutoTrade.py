@@ -23,6 +23,7 @@ def send_message(msg):
 
 def get_access_token():
     """토큰 발급"""
+    #접근 권한을 위한 토큰
     headers = {"content-type":"application/json"}
     body = {"grant_type":"client_credentials",
     "appkey":APP_KEY, 
@@ -98,8 +99,8 @@ def get_stock_balance():
         "custtype":"P",
     }
     params = {
-        "CANO": CANO,
-        "ACNT_PRDT_CD": ACNT_PRDT_CD,
+        "CANO": CANO,#계좌번호 앞 8자리
+        "ACNT_PRDT_CD": ACNT_PRDT_CD, #계좌번호 뒤 2자리
         "AFHR_FLPR_YN": "N",
         "OFL_YN": "",
         "INQR_DVSN": "02",
@@ -143,9 +144,9 @@ def get_balance():
     params = {
         "CANO": CANO,
         "ACNT_PRDT_CD": ACNT_PRDT_CD,
-        "PDNO": "005930",
-        "ORD_UNPR": "65500",
-        "ORD_DVSN": "01",
+        "PDNO": "005930", #종목
+        "ORD_UNPR": "65500", 
+        "ORD_DVSN": "01",#주문 구분(01은 시장가)
         "CMA_EVLU_AMT_ICLD_YN": "Y",
         "OVRS_ICLD_YN": "Y"
     }
@@ -175,7 +176,7 @@ def buy(code="005930", qty="1"):
         "hashkey" : hashkey(data)
     }
     res = requests.post(URL, headers=headers, data=json.dumps(data))
-    if res.json()['rt_cd'] == '0':
+    if res.json()['rt_cd'] == '0':#rt_cd=성공실패여부로 0이면 성공/0이외의 값이면 실패
         send_message(f"[매수 성공]{str(res.json())}")
         return True
     else:
@@ -191,14 +192,15 @@ def sell(code="005930", qty="1"):
         "ACNT_PRDT_CD": ACNT_PRDT_CD,
         "PDNO": code,
         "ORD_DVSN": "01",
-        "ORD_QTY": qty,
+        "ORD_QTY": qty, # 주문수량
         "ORD_UNPR": "0",
     }
-    headers = {"Content-Type":"application/json", 
+    headers = {
+        "Content-Type":"application/json", 
         "authorization":f"Bearer {ACCESS_TOKEN}",
         "appKey":APP_KEY,
         "appSecret":APP_SECRET,
-        "tr_id":"TTTC0801U",
+        "tr_id":"TTTC0801U", #요청한 거래ID
         "custtype":"P",
         "hashkey" : hashkey(data)
     }
@@ -280,3 +282,7 @@ try:
 except Exception as e:
     send_message(f"[오류 발생]{e}")
     time.sleep(1)
+
+
+# res = requests.post(URL, headers=headers, data=json.dumps(data))
+# res.json()
